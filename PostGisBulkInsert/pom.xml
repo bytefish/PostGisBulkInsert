@@ -7,6 +7,31 @@
     <groupId>de.bytefish</groupId>
     <artifactId>postgisbulkinsert</artifactId>
     <version>0.1</version>
+    <name>postgisbulkinsert</name>
+    <description>PostGisBulkInsert extends PgBulkInsert to enable Postgres bulk insert for PostGIS Types.</description>
+    <url>https://github.com/bytefish/PostGisBulkInsert</url>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/bytefish/PostGisBulkInsert</url>
+        <connection>scm:git:git://github.com/bytefish/PostGisBulkInsert.git</connection>
+        <developerConnection>scm:git:git@github.com:bytefish/PostGisBulkInsert.git</developerConnection>
+    </scm>
+
+    <developers>
+        <developer>
+            <email>pwag86@googlemail.com</email>
+            <name>Philipp Wagner</name>
+            <url>https://www.bytefish.de</url>
+            <id>bytefish</id>
+        </developer>
+    </developers>
 
     <build>
         <plugins>
@@ -25,6 +50,91 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <pgbulkinsert.version>3.3</pgbulkinsert.version>
     </properties>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.4</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-release-plugin</artifactId>
+                            <version>2.1</version>
+                            <configuration>
+                                <mavenExecutorId>forked-path</mavenExecutorId>
+                                <useReleaseProfile>false</useReleaseProfile>
+                                <arguments>${arguments} -Psonatype-oss-release</arguments>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+
+        <profile>
+            <id>docs-and-source</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>2.2.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.9.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
+
 
     <dependencies>
         <dependency>

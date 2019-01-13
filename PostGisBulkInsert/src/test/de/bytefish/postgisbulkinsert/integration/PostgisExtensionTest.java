@@ -11,27 +11,27 @@ import de.bytefish.postgisbulkinsert.utils.TransactionalTestBase;
 import mil.nga.sf.Geometry;
 import mil.nga.sf.Point;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PostgisExtensionTest extends TransactionalTestBase {
 
     private class PostgisEntity {
 
-        private Geometry col_postgis;
+        private final Geometry geometry;
 
-        public Geometry getCol_postgis() {
-            return col_postgis;
+        public PostgisEntity(Geometry geometry) {
+            this.geometry = geometry;
         }
 
-        public void setCol_postgis(Geometry col_postgis) {
-            this.col_postgis = col_postgis;
+        public Geometry getGeometry() {
+            return geometry;
         }
     }
 
@@ -50,14 +50,14 @@ public class PostgisExtensionTest extends TransactionalTestBase {
         public PostgisEntityMapping() {
             super(schema, "postgis_table");
 
-            PostgisExtensions.mapPostgis(this, "col_postgis", PostgisEntity::getCol_postgis);
+            PostgisExtensions.mapPostgis(this, "geometry", PostgisEntity::getGeometry);
         }
     }
 
 
     private boolean createTable() throws SQLException {
         String sqlStatement = String.format("CREATE TABLE %s.postgis_table(\n", schema) +
-                "                col_postgis Geometry(POINT) \n" +
+                "                geometry Geometry(POINT) \n" +
                 "            );";
 
         Statement statement = connection.createStatement();
@@ -68,21 +68,20 @@ public class PostgisExtensionTest extends TransactionalTestBase {
     @Test
     public void saveAll_Postgis_Test() throws SQLException {
 
+        // PostGIS Entity to Store:
+        PostgisEntity entity = new PostgisEntity(new Point(1, 1));
+
         // This list will be inserted.
-        List<PostgisExtensionTest.PostgisEntity> entities = new ArrayList<>();
+        List<PostgisExtensionTest.PostgisEntity> entities = Arrays.asList(entity);
 
-        // Create the Map to Store:
-        Geometry postgisData = new Point(1, 1);
+        // Build the Mapping:
+        AbstractMapping<PostgisEntity> mapping = new PostgisEntityMapping();
 
-        // Create the Entity to insert:
-        PostgisExtensionTest.PostgisEntity entity = new PostgisExtensionTest.PostgisEntity();
-        entity.setCol_postgis(postgisData);
+        // And the Bulk Inserter:
+        PgBulkInsert<PostgisEntity> bulkInsert = new PgBulkInsert<>(mapping);
 
-        entities.add(entity);
-
-        PgBulkInsert<PostgisExtensionTest.PostgisEntity> bulkInsert = new PgBulkInsert<>(new PostgisExtensionTest.PostgisEntityMapping());
-
-        bulkInsert.saveAll(PostgreSqlUtils.getPGConnection(connection), entities.stream());
+        // And Insert the entities:
+        bulkInsert.saveAll(PostgreSqlUtils.getPGConnection(connection), entities);
 
         ResultSet rs = getAll();
 
@@ -93,7 +92,7 @@ public class PostgisExtensionTest extends TransactionalTestBase {
     }
 
     private ResultSet getAll() throws SQLException {
-        String sqlStatement = String.format("SELECT ST_AsText(col_postgis) AS geom FROM %s.postgis_table", schema);
+        String sqlStatement = String.format("SELECT ST_AsText(geometry) AS geom FROM %s.postgis_table", schema);
         Statement statement = connection.createStatement();
         return statement.executeQuery(sqlStatement);
     }

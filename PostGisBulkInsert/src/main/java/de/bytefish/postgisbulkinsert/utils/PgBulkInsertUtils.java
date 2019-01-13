@@ -8,6 +8,7 @@ import de.bytefish.pgbulkinsert.model.ColumnDefinition;
 import de.bytefish.pgbulkinsert.pgsql.PgBinaryWriter;
 import de.bytefish.pgbulkinsert.pgsql.handlers.IValueHandler;
 
+import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
@@ -15,7 +16,7 @@ public class PgBulkInsertUtils {
 
     private PgBulkInsertUtils() {}
 
-    public static <TEntity, TProperty> void addColumn(AbstractMapping mapping, String columnName, IValueHandler<TProperty> valueHandler, Function<TEntity, TProperty> propertyGetter) {
+    public static <TEntity, TProperty> void addColumn(AbstractMapping<TEntity> mapping, String columnName, IValueHandler<TProperty> valueHandler, Function<TEntity, TProperty> propertyGetter) {
 
         BiConsumer<PgBinaryWriter, TEntity> action = new BiConsumer<PgBinaryWriter, TEntity>() {
             @Override
