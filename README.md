@@ -6,7 +6,7 @@
 
 [PostGisBulkInsert] is available in the Central Maven Repository. 
 
-You can add the following dependencies to your pom.xml to include [PgBulkInsert] in your project.
+You can add the following dependencies to your pom.xml to include [PostGisBulkInsert] in your project.
 
 ```xml
 <dependency>
