@@ -13,11 +13,11 @@ public abstract class TransactionalTestBase {
 
     protected Connection connection;
 
-    protected final String schema = "sample";
+    protected final String schema = "public";
 
     @Before
     public void setUp() throws Exception {
-        connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/sampledb", "philipp", "test_pwd");
+        connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5431/postgres", "postgres", "password");
 
         onSetUpBeforeTransaction();
         connection.setAutoCommit(false); // Start the Transaction:
