@@ -52,8 +52,6 @@
         <sfwkb.version>2.2.2</sfwkb.version>
     </properties>
 
-
-
     <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
@@ -142,14 +140,13 @@
 
     </profiles>
 
-
-
     <dependencies>
         <dependency>
             <groupId>de.bytefish</groupId>
             <artifactId>pgbulkinsert</artifactId>
             <version>${pgbulkinsert.version}</version>
         </dependency>
+
         <dependency>
             <groupId>mil.nga.sf</groupId>
             <artifactId>sf-wkb</artifactId>
@@ -159,6 +156,12 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>mil.nga.sf</groupId>
+            <artifactId>sf-wkt</artifactId>
+            <version>1.2.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
