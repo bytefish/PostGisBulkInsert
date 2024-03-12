@@ -12,7 +12,7 @@ You can add the following dependencies to your pom.xml to include [PostGisBulkIn
 <dependency>
 	<groupId>de.bytefish</groupId>
 	<artifactId>postgisbulkinsert</artifactId>
-	<version>0.1</version>
+	<version>0.2.0</version>
 </dependency>
 ```
 

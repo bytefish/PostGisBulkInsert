@@ -24,4 +24,8 @@ public class PostgisValueHandler extends BaseValueHandler<Geometry> {
         buffer.write(wkb);
     }
 
+    @Override
+    public int getLength(Geometry value) {
+        throw new UnsupportedOperationException();
+    }
 }
