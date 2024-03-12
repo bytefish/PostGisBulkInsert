@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  postgis:
+    image: postgis/postgis:16-master
+    container_name: postgis
+    ports:
+      - "5431:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
