@@ -6,7 +6,7 @@
 
     <groupId>de.bytefish</groupId>
     <artifactId>postgisbulkinsert</artifactId>
-    <version>0.2.1</version>
+    <version>0.2.2</version>
     <name>postgisbulkinsert</name>
     <description>PostGisBulkInsert extends PgBulkInsert to enable Postgres bulk insert for PostGIS Types.</description>
     <url>https://github.com/bytefish/PostGisBulkInsert</url>
@@ -48,7 +48,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <pgbulkinsert.version>8.1.2</pgbulkinsert.version>
+        <pgbulkinsert.version>8.1.3</pgbulkinsert.version>
         <sfwkb.version>2.2.2</sfwkb.version>
     </properties>
 
