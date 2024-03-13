@@ -6,7 +6,7 @@
 
     <groupId>de.bytefish</groupId>
     <artifactId>postgisbulkinsert</artifactId>
-    <version>0.2.0</version>
+    <version>0.2.1</version>
     <name>postgisbulkinsert</name>
     <description>PostGisBulkInsert extends PgBulkInsert to enable Postgres bulk insert for PostGIS Types.</description>
     <url>https://github.com/bytefish/PostGisBulkInsert</url>
@@ -39,8 +39,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>17</source>
-                    <target>17</target>
+                    <source>11</source>
+                    <target>11</target>
                 </configuration>
             </plugin>
         </plugins>

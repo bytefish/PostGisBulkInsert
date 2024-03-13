@@ -21,7 +21,7 @@ import java.util.List;
 
 public class PostgisExtensionStringTest extends TransactionalTestBase {
 
-    private class StringToGeometryConverter {
+    private static class StringToGeometryConverter {
 
         public static final Geometry convert(String value) {
             try {
